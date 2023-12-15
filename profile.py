@@ -254,8 +254,8 @@ cn_link.addInterface(cn_if)
 #NodeB
 nodeb = request.RawPC( "gNodeB" )
 nodeb.hardware_type = "d430"
-node1.component_manager_id = COMP_MANAGER_ID
-node1.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
+nodeb.component_manager_id = COMP_MANAGER_ID
+nodeb.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
 
 nodeb_cn_if = nodeb.addInterface("nodeb-cn-if")
 nodeb_cn_if.addAddress(rspec.IPv4Address("192.168.1.2", "255.255.255.0"))
@@ -270,9 +270,9 @@ node1.hardware_type = "d430"
 node1.component_manager_id = COMP_MANAGER_ID
 node1.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
 
-node1_node0_if = node1.addInterface("node1-node0-if")
-node1_node0_if.addAddress(rspec.IPv4Address("192.168.1.2", "255.255.255.0"))
-nodeb_link.addInterface(node1_node0_if)
+node1_nodeb_if = node1.addInterface("node1-nodeb-if")
+node1_nodeb_if.addAddress(rspec.IPv4Address("192.168.1.2", "255.255.255.0"))
+nodeb_link.addInterface(node1_nodeb_if)
 
 #UE2
 node2 = request.RawPC( "UE2" )
@@ -280,9 +280,9 @@ node2.hardware_type = "d430"
 node2.component_manager_id = COMP_MANAGER_ID
 node2.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
 
-node2_node0_if = node2.addInterface("node2-node0-if")
-node2_node0_if.addAddress(rspec.IPv4Address("192.168.1.3", "255.255.255.0"))
-nodeb_link.addInterface(node2_node0_if)
+node2_nodeb_if = node2.addInterface("node2-nodeb-if")
+node2_nodeb_if.addAddress(rspec.IPv4Address("192.168.1.3", "255.255.255.0"))
+nodeb_link.addInterface(node2_nodeb_if)
 
 tour = IG.Tour()
 tour.Description(IG.Tour.MARKDOWN, tourDescription)
