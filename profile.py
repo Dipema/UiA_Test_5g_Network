@@ -262,6 +262,7 @@ nodeb_cn_if.addAddress(rspec.IPv4Address("192.168.1.2", "255.255.255.0"))
 cn_link.addInterface(nodeb_cn_if)
 
 nodeb_if = nodeb.addInterface("nodeb-if")
+nodeb_if.addAddress(rspec.IPv4Address("192.168.1.5", "255.255.255.0"))
 nodeb_link = request.Link("nodeb-link")
 nodeb_link.bandwidth = 10*1000*1000
 nodeb_link.addInterface(nodeb_if)
