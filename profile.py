@@ -3,7 +3,7 @@
 tourDescription = """
 ### OAI 5G RF UiA
 
-This profile deploys several compute nodes with an image that includes
+This  profile deploys several compute nodes with an image that includes
 docker, docker-compose, tshark, oai-cn5g-fed v1.2.1, and docker images for all
 of the OAI 5G core network functions. It was originally used for the OAI Fall
 2021 Workshop RAN Lab hands-on sessions. The associated slides and instructions
