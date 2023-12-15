@@ -3,7 +3,7 @@
 tourDescription = """
 ### OAI 5G RF UiA
 
-This profile deploys a single compute node with an image that includes
+This profile deploys several compute nodes with an image that includes
 docker, docker-compose, tshark, oai-cn5g-fed v1.2.1, and docker images for all
 of the OAI 5G core network functions. It was originally used for the OAI Fall
 2021 Workshop RAN Lab hands-on sessions. The associated slides and instructions
@@ -26,7 +26,7 @@ before proceeding.
 
 ### Build OAI RAN
 
-Log into `node` and clone the OAI repository. Note that we are using a local
+Log into `cn5g` and clone the OAI repository. Note that we are using a local
 mirror of the OAI repository and only making a shallow clone of a specific
 branch in order to speed up the cloning process.
 
@@ -34,26 +34,6 @@ branch in order to speed up the cloning process.
 bash
 # We will use a dedicated tag since one package is sometimes difficult to install
 git clone --branch 2021.w46-powder --depth 1 https://gitlab.flux.utah.edu/powder-mirror/openairinterface5g ~/openairinterface5g
-```
-
-Next, install dependencies and build OAI:
-
-```
-cd ~/openairinterface5g
-source oaienv
-cd cmake_targets/
-
-# Even if we won't be using USRP in this experiment, let's install UHD
-export BUILD_UHD_FROM_SOURCE=True
-export UHD_VERSION=3.15.0.0
-
-# The next command takes around 8 minutes
-# This command SHALL be done ONCE in the life of your server
-./build_oai -I -w USRP
-
-# Let's build now the gNB and nrUE soft modems
-# The next command takes around 6 minutes
-./build_oai --gNB --nrUE -w SIMU --build-lib nrscope --ninja
 ```
 
 ### Start the "minimal" OAI 5G core network deployment
@@ -93,9 +73,29 @@ sudo docker logs -f oai-amf
 [2021-11-24T16:41:33.349016] [AMF] [amf_app] [info ]
 ```
 
+Next in al the other nodes (gNodeB, UE1, UE2), install dependencies and build OAI:
+
+```
+cd ~/openairinterface5g
+source oaienv
+cd cmake_targets/
+
+# Even if we won't be using USRP in this experiment, let's install UHD
+export BUILD_UHD_FROM_SOURCE=True
+export UHD_VERSION=3.15.0.0
+
+# The next command takes around 8 minutes
+# This command SHALL be done ONCE in the life of your server
+./build_oai -I -w USRP
+
+# Let's build now the gNB and nrUE soft modems
+# The next command takes around 6 minutes
+./build_oai --gNB --nrUE -w SIMU --build-lib nrscope --ninja
+```
+
 ### Start the monolithic gNodeB
 
-In another terminal session on `node`, run the monolithic gNodeB using the
+In another terminal session on `gNodeB`, run the monolithic gNodeB using the
 configuration file provided by the profile::
 
 ```
@@ -123,7 +123,7 @@ start showing various plots.
 
 ### Start the UE
 
-In yet another terminal session on `node`, run the UE using the configuration file
+In another terminal session on `UE1` and `UE2`, run the UE using the configuration file
 provided by the profile:
 
 ```
